@@ -9,6 +9,7 @@ module id_ex (
     input [31:0] immediate,
     input [4:0] if_rd,
     input [31:0] pc,
+    input [31:0]if_id_instruction,
     output [31:0] pc_out,
     output id_ex_ALUSrc,id_ex_MemtoReg,id_ex_MemRead,id_ex_MemWrite,id_ex_Branch,id_ex_RegWrite,
     output [1:0]id_ex_ALUOp,
@@ -17,7 +18,8 @@ module id_ex (
     output [4:0] id_rs1,
     output [4:0] id_rs2,
     output [4:0] id_rd,
-    output [31:0] immediate_out
+    output [31:0] immediate_out,
+    output [31:0] id_ex_instr
 );
 always @(posedge clk ) begin
     out_rs1 <= rs1;
@@ -34,6 +36,7 @@ always @(posedge clk ) begin
     id_ex_ALUOp    <= ALUOp;
     immediate_out <= immediate;
     pc_out  <= pc;
+    id_ex_instr <= if_id_instruction;
 
 end
     

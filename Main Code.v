@@ -1,9 +1,10 @@
 module maincode (clk);
     input clk;
-    wire [31:0] PC,pc_4,instr,if_id_instruction,if_id_pc,Write_data,Read_data1,Read_data2,if_id_ImmExt,id_ex_pc,id_ex_rs1val,id_ex_rs2val,id_ex_immediate;
+    wire [31:0] PC,pc_4,instr,if_id_instruction,if_id_pc,Write_data,Read_data1,Read_data2,if_id_ImmExt,id_ex_pc,id_ex_rs1val,id_ex_rs2val,id_ex_immediate,shift_out,shift_adderout,AluMuxoutput,id_ex_instr,rs1,rs2,ex_mem_address;
     wire [7:0] control_in;
     wire [4:0] mem_wb_rd,id_ex_rs1,id_ex_rs2,id_ex_rd;
-    wire [1:0] ALUOp,id_ex_ALUOp;
+    wire [3:0] ALUControl_out;
+    wire [1:0] ALUOp,id_ex_ALUOp,forward_a,forward_b;
     wire if_idWrite,mem_wb_regwrite,ALUSrc,MemtoReg,MemRead,MemWrite,Branch,RegWrite,pc_write,controlmux,id_ex_ALUSrc,id_ex_MemtoReg,id_ex_MemRead,id_ex_MemWrite,id_ex_Branch,id_ex_RegWrite;
     reg [31:0] pc;
     initial begin
@@ -18,6 +19,29 @@ module maincode (clk);
     Control_Unit cu(if_id_instruction[6:0],ALUSrc,MemtoReg,MemRead,MemWrite,Branch,RegWrite,ALUOp);
     hazarddetection hd(id_ex_instr,id_ex_memread,pc_write,if_idWrite,controlmux);
     assign control_in = (controlmux == 1'b0) ? {ALUSrc,MemtoReg,MemRead,MemWrite,Branch,RegWrite,ALUOp} : 8'b0;
-    id_ex dut2(clk,control_in[7],control_in[6],control_in[5],control_in[4],control_in[3],control_in[2],control_in[1:0],Read_data1,Read_data2,if_id_instruction[19:15],if_id_instruction[24:20],if_id_ImmExt,if_id_instruction[11:7],if_id_pc,id_ex_pc,id_ex_ALUSrc,id_ex_MemtoReg,id_ex_MemRead,id_ex_MemWrite,id_ex_Branch,id_ex_RegWrite,id_ex_ALUOp,id_ex_rs1val,id_ex_rs2val,id_ex_rs1,id_ex_rs2,id_ex_rd,id_ex_immediate);
+    id_ex dut2(clk,control_in[7],control_in[6],control_in[5],control_in[4],control_in[3],control_in[2],control_in[1:0],Read_data1,Read_data2,if_id_instruction[19:15],if_id_instruction[24:20],if_id_ImmExt,if_id_instruction[11:7],if_id_pc,if_id_instruction,id_ex_pc,id_ex_ALUSrc,id_ex_MemtoReg,id_ex_MemRead,id_ex_MemWrite,id_ex_Branch,id_ex_RegWrite,id_ex_ALUOp,id_ex_rs1val,id_ex_rs2val,id_ex_rs1,id_ex_rs2,id_ex_rd,id_ex_immediate,id_ex_instr);
+    shift s1(id_ex_immediate,shift_out);
+    adderB add2(id_ex_pc,shift_out,shift_adderout);
+    MUX_2 mux_alu(id_ex_rs2val,id_ex_immediate,id_ex_ALUSrc,AluMuxoutput);
+    ALU_Control alucontrol(id_ex_ALUOp,id_ex_instr[30],id_ex_instr[14:12],ALUControl_out);
+    MUX_3 muxrs1(id_ex_rs1val,Write_data,ex_mem_address,forward_a,rs1);
+    MUX_3 muxrs2(id_ex_rs2val,Write_data,ex_mem_address,forward_b,rs2);
+    forwardunit fu(id_ex_rs1,id_ex_rs2,ex_mem_rd,mem_wb_rd,ex_mem_regwrite,mem_wb_regwrite,forward_a,forward_b);
+    ex_mem dut3(clk,
+    input [2:0]wb,
+    input [2:0]m,
+    input [31:0]pc,
+    input zero,
+    input [31:0]alu_result,
+    input [31:0]rs2,
+    input [4:0] id_rd,
+    output [31:0]pc_out,
+    output out_zero,
+    output [31:0]alu_resultaddress,
+    output [31:0]writedata,
+    output [4:0] ex_rd,
+    output [2:0]out_wb,
+    output [2:0]out_m
+);
 
 endmodule
