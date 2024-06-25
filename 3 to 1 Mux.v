@@ -1,6 +1,6 @@
 module MUX_3 (input [31:0] a,b,c,
  input [1:0]  s,
- output [31:0] out);
+ output reg [31:0] out);
 
 always @(*) begin
     case (s)

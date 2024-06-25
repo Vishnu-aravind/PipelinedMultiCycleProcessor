@@ -1,8 +1,8 @@
-module Register_File(RegWrite, Rs1, Rs2, Rd, Write_data, Read_data1, Read_data2);
-    input RegWrite;
+module Register_File(clk,RegWrite, Rs1, Rs2, Rd, Write_data, Read_data1, Read_data2);
+    input RegWrite,clk;
     input [4:0]Rs1, Rs2, Rd;
     input [31:0]Write_data;
-    output [31:0]Read_data1, Read_data2;
+    output reg [31:0]Read_data1, Read_data2;
     reg [31:0]reg_file[31:0];
 initial begin
     reg_file[0] = 32'b0;
@@ -38,13 +38,16 @@ initial begin
     reg_file[30] = 32'd2;
     reg_file[31] = 32'b1;
 end
-always@(*) begin
+always@(posedge clk) begin
         case(RegWrite) 
             1'b1 : reg_file[Rd] <= Write_data;
             default : reg_file[Rd] <= 32'b0;
         endcase
 end
-assign Read_data1 = reg_file[Rs1];
-assign Read_data2 = reg_file[Rs2];
+always @(negedge clk ) begin
+    Read_data1 <= reg_file[Rs1];
+    Read_data2 <= reg_file[Rs2];
+end
+
 
 endmodule

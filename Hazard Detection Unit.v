@@ -4,7 +4,7 @@ module hazarddetection (
     output pc_write,if_idWrite,controltomux
 );
     wire [6:0]opcode;
-    wire [4:0]id_ex_rd,
+    wire [4:0]id_ex_rd;
     wire rs1_comp,rs2_comp;
     assign opcode = instr[6:0];
     assign id_ex_rd = instr[11:7];

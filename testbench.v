@@ -1,6 +1,6 @@
 module testbench();
 reg clk;
-architecture arch(clk);
+maincode arch(clk);
 
 initial begin
     

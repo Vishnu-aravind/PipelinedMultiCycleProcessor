@@ -6,12 +6,12 @@ module ex_mem (
     input [31:0]alu_result,
     input [31:0]rs2,
     input [4:0] id_rd,
-    output [31:0]pc_out,
-    output out_zero,
-    output [31:0]alu_resultaddress,
-    output [31:0]writedata,
-    output [4:0] ex_rd,
-    output ex_mem_MemtoReg,ex_mem_MemRead,ex_mem_MemWrite,ex_mem_Branch,ex_mem_RegWrite
+    output reg [31:0]pc_out,
+    output reg out_zero,
+    output reg [31:0]alu_resultaddress,
+    output reg [31:0]writedata,
+    output reg [4:0] ex_rd,
+    output reg ex_mem_MemtoReg,ex_mem_MemRead,ex_mem_MemWrite,ex_mem_Branch,ex_mem_RegWrite
 );
 always @(posedge clk ) begin
     pc_out  <= pc;

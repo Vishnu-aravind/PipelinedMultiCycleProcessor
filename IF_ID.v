@@ -3,8 +3,8 @@ module if_id (
     input [31:0]instr,
     input [31:0]pc,
     input if_idWrite,
-    output Instruction;
-    output [31:0]pc_out
+    output reg Instruction,
+    output reg [31:0]pc_out
 );
 always @(posedge clk ) begin
     if (if_idWrite==0) begin
