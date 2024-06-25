@@ -27,21 +27,10 @@ module maincode (clk);
     MUX_3 muxrs1(id_ex_rs1val,Write_data,ex_mem_address,forward_a,rs1);
     MUX_3 muxrs2(id_ex_rs2val,Write_data,ex_mem_address,forward_b,rs2);
     forwardunit fu(id_ex_rs1,id_ex_rs2,ex_mem_rd,mem_wb_rd,ex_mem_regwrite,mem_wb_regwrite,forward_a,forward_b);
-    ex_mem dut3(clk,
-    input [2:0]wb,
-    input [2:0]m,
-    input [31:0]pc,
-    input zero,
-    input [31:0]alu_result,
-    input [31:0]rs2,
-    input [4:0] id_rd,
-    output [31:0]pc_out,
-    output out_zero,
-    output [31:0]alu_resultaddress,
-    output [31:0]writedata,
-    output [4:0] ex_rd,
-    output [2:0]out_wb,
-    output [2:0]out_m
-);
+    ALU alu(rs1,rs2,ALUControl_out,id_ex_alu_result,zero);
+    ex_mem dut3(clk,id_ex_MemtoReg,id_ex_MemRead,id_ex_MemWrite,id_ex_Branch,id_ex_RegWrite,shift_adderout,zero,id_ex_alu_result,rs2,id_ex_rd,ex_mem_pc,ex_mem_zero,ex_mem_alu_result,ex_mem_writedata,ex_mem_rd,ex_mem_MemtoReg,ex_mem_MemRead,ex_mem_MemWrite,ex_mem_Branch,ex_mem_RegWrite);
+    datamemory d1(ex_mem_alu_result,ex_mem_writedata,ex_mem_MemRead,ex_mem_MemWrite,ex_mem_Readdata);
+    mem_wb dut4(clk,ex_mem_RegWrite,ex_mem_MemtoReg,ex_mem_Readdata,ex_mem_alu_result,ex_mem_rd,mem_wb_RegWrite,mem_wb_MemRead,mem_wb_Readdata,mem_wb_alu_result,mem_wb_rd);
+    MUX_2 mux_writeback(mem_wb_Readdata,mem_wb_alu_result,mem_wb_MemRead,Write_data);
 
 endmodule
