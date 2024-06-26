@@ -3,6 +3,9 @@ module ALU (A,B,ALUcontrol_In,ALUResult,zero);
     input [3:0] ALUcontrol_In;
     output reg [31:0] ALUResult;
     output reg zero;
+initial begin
+    zero= 0;
+end
 always@(*) begin
     case (ALUcontrol_In)
     4'b0000: ALUResult <= A&B;

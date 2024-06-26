@@ -1,18 +1,24 @@
 module hazarddetection (
     input [31:0] instr,
+    input [4:0]id_ex_rd,
     input id_ex_memread,
-    output pc_write,if_idWrite,controltomux
+    output reg pc_write,if_idWrite,controltomux
 );
     wire [6:0]opcode;
-    wire [4:0]id_ex_rd;
     wire rs1_comp,rs2_comp;
     assign opcode = instr[6:0];
-    assign id_ex_rd = instr[11:7];
+    initial begin
+        if_idWrite = 1;
+        pc_write   = 1;
+    end
     rs1_comparator r1(instr[19:15],id_ex_rd,rs1_comp);
     rs2_comparator r2(instr[24:20],id_ex_rd,opcode,rs2_comp);
-    assign controltomux = ((rs1_comp || rs2_comp) && id_ex_memread);
-    assign if_idWrite   = ~((rs1_comp || rs2_comp) && id_ex_memread);
-    assign pc_write     = ~((rs1_comp || rs2_comp) && id_ex_memread);
+    always@(rs1_comp,rs2_comp) begin
+         controltomux = ((rs1_comp || rs2_comp) && id_ex_memread);
+         if_idWrite   = ~((rs1_comp || rs2_comp) && id_ex_memread);
+         pc_write     = ~((rs1_comp || rs2_comp) && id_ex_memread);
+    end
+    
 
 endmodule
 

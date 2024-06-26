@@ -13,6 +13,9 @@ module ex_mem (
     output reg [4:0] ex_rd,
     output reg ex_mem_MemtoReg,ex_mem_MemRead,ex_mem_MemWrite,ex_mem_Branch,ex_mem_RegWrite
 );
+initial begin
+    ex_mem_Branch =0;
+end
 always @(posedge clk ) begin
     pc_out  <= pc;
     out_zero <= zero;

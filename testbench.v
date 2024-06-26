@@ -6,27 +6,27 @@ initial begin
     
     #5 clk = 0;
     #5 clk = 1;  //1
-    #5 clk = 0;
+    #5 clk = 0; 
     #5 clk = 1;  //2
-    #5 clk = 0;
+    #5 clk = 0;  
     #5 clk = 1;  //3
-    #5 clk = 0;
+    #5 clk = 0; 
     #5 clk = 1;  //4
-    #5 clk = 0;
+    #5 clk = 0; 
     #5 clk = 1;  //5
-    #5 clk = 0;
+    #5 clk = 0;  
     #5 clk = 1;  //6
-    #5 clk = 0;
+    #5 clk = 0;   
     #5 clk = 1;  //7
-    #5 clk = 0;
+    #5 clk = 0;  
     #5 clk = 1;  //8
-    #5 clk = 0;
+    #5 clk = 0;  
     #5 clk = 1;  //9
-    #5 clk = 0;
+    #5 clk = 0;  
     #5 clk = 1;  //10
-    #5 clk = 0;
+    #5 clk = 0;  
     #5 clk = 1;  //11
-    #5 clk = 0;
+    #5 clk = 0;  /*
     #5 clk = 1;  //12
     #5 clk = 0;
     #5 clk = 1;  //13
@@ -45,7 +45,8 @@ initial begin
     #5 clk = 0;
     #5 clk = 1;  //20
     #5 clk = 0;
-    #5 clk = 1;  //21
+    #5 clk = 1;  //21 */
+   
        
 end
 
