@@ -38,7 +38,7 @@ initial begin
     #5 clk = 1;  //16
     #5 clk = 0;  /*
     #5 clk = 1;  //17 
-    #5 clk = 0;
+    #5 clk = 0;  
     #5 clk = 1;  //18
     #5 clk = 0;
     #5 clk = 1;  //19

@@ -24,12 +24,12 @@ module maincode (clk);
     id_ex dut2(clk,control_in[7],control_in[6],control_in[5],control_in[4],control_in[3],control_in[2],control_in[1:0],Read_data1,Read_data2,if_id_instruction[19:15],if_id_instruction[24:20],if_id_ImmExt,if_id_instruction[11:7],if_id_pc,if_id_instruction,id_ex_pc,id_ex_ALUSrc,id_ex_MemtoReg,id_ex_MemRead,id_ex_MemWrite,id_ex_Branch,id_ex_RegWrite,id_ex_ALUOp,id_ex_rs1val,id_ex_rs2val,id_ex_rs1,id_ex_rs2,id_ex_rd,id_ex_immediate,id_ex_instr);
     shift s1(id_ex_immediate,shift_out);
     adderB add2(id_ex_pc,shift_out,shift_adderout);
-    MUX_2 mux_alu(id_ex_rs2val,id_ex_immediate,id_ex_ALUSrc,AluMuxoutput);
+    MUX_2 mux_alu(rs2,id_ex_immediate,id_ex_ALUSrc,AluMuxoutput); 
     ALU_Control alucontrol(id_ex_ALUOp,id_ex_instr[30],id_ex_instr[14:12],ALUControl_out);
     MUX_3 muxrs1(id_ex_rs1val,Write_data,ex_mem_alu_result,forward_a,rs1);
-    MUX_3 muxrs2(AluMuxoutput,Write_data,ex_mem_alu_result,forward_b,rs2);
+    MUX_3 muxrs2(id_ex_rs2val,Write_data,ex_mem_alu_result,forward_b,rs2);
     forwardunit fu(id_ex_rs1,id_ex_rs2,ex_mem_rd,mem_wb_rd,ex_mem_RegWrite,mem_wb_RegWrite,forward_a,forward_b);
-    ALU alu(rs1,rs2,ALUControl_out,id_ex_alu_result,zero);
+    ALU alu(rs1,AluMuxoutput,ALUControl_out,id_ex_alu_result,zero);
     ex_mem dut3(clk,id_ex_MemtoReg,id_ex_MemRead,id_ex_MemWrite,id_ex_Branch,id_ex_RegWrite,shift_adderout,zero,id_ex_alu_result,rs2,id_ex_rd,ex_mem_pc,ex_mem_zero,ex_mem_alu_result,ex_mem_writedata,ex_mem_rd,ex_mem_MemtoReg,ex_mem_MemRead,ex_mem_MemWrite,ex_mem_Branch,ex_mem_RegWrite);
     MUX_2 mux_pc(pc_4,ex_mem_pc,((ex_mem_Branch)&&(ex_mem_zero)),Pc);
     always@(Pc) begin
