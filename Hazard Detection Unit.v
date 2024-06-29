@@ -5,7 +5,7 @@ module hazarddetection (
     output reg pc_write,if_idWrite,controltomux
 );
     wire [6:0]opcode;
-    wire rs1_comp,rs2_comp;
+    wire rs1_comp,rs2_comp,rs;
     assign opcode = instr[6:0];
     initial begin
         if_idWrite = 1;
@@ -13,10 +13,11 @@ module hazarddetection (
     end
     rs1_comparator r1(instr[19:15],id_ex_rd,rs1_comp);
     rs2_comparator r2(instr[24:20],id_ex_rd,opcode,rs2_comp);
-    always@(rs1_comp,rs2_comp) begin
-         controltomux = ((rs1_comp || rs2_comp) && id_ex_memread);
-         if_idWrite   = ~((rs1_comp || rs2_comp) && id_ex_memread);
-         pc_write     = ~((rs1_comp || rs2_comp) && id_ex_memread);
+    assign rs = rs1_comp || rs2_comp;
+    always@(rs,id_ex_memread) begin
+         controltomux = (rs && id_ex_memread);
+         if_idWrite   = ~(rs && id_ex_memread);
+         pc_write     = ~(rs && id_ex_memread);
     end
     
 

@@ -6,10 +6,10 @@ module Register_File(RegWrite, Rs1, Rs2, Rd, Write_data, Read_data1, Read_data2)
     reg [31:0]reg_file[31:0];
 initial begin
     reg_file[0] = 32'b0;
-    reg_file[1] = 32'd10;
+    reg_file[1] = 32'd1;
     reg_file[2] = 32'd2;
-    reg_file[3] = 32'd3;
-    reg_file[4] = 32'd4;
+    reg_file[3] = 32'd1;
+    reg_file[4] = 32'd1;
     reg_file[5] = 32'b1;
     reg_file[6] = 32'b1;
     reg_file[7] = 32'b1;
