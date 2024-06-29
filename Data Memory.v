@@ -12,6 +12,7 @@ initial begin
     datamem [3] <= 32'd47;
     datamem [4] <= 32'd7;
     datamem [5] <= 32'd100;
+    datamem [10] <= 32'd2024;
 end
 
 always @(MemRead,MemWrite) begin
