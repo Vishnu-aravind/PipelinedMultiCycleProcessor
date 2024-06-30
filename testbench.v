@@ -34,7 +34,7 @@ initial begin
     #5 clk = 1;  //14
     #5 clk = 0;  
     #5 clk = 1;  //15
-    #5 clk = 0;  /*
+    #5 clk = 0;  
     #5 clk = 1;  //16
     #5 clk = 0;  
     #5 clk = 1;  //17 
@@ -42,10 +42,10 @@ initial begin
     #5 clk = 1;  //18
     #5 clk = 0;  
     #5 clk = 1;  //19
-    #5 clk = 0;
+    #5 clk = 0;  
     #5 clk = 1;  //20
-    #5 clk = 0;
-    #5 clk = 1;  //21 */
+    #5 clk = 0;  
+    #5 clk = 1;  //21 
    
        
 end
