@@ -28,13 +28,13 @@ initial begin
     #5 clk = 1;  //11
     #5 clk = 0;  
     #5 clk = 1;  //12
-    #5 clk = 0;  /*
+    #5 clk = 0;  
     #5 clk = 1;  //13
     #5 clk = 0;  
     #5 clk = 1;  //14
     #5 clk = 0;  
     #5 clk = 1;  //15
-    #5 clk = 0;  
+    #5 clk = 0;  /*
     #5 clk = 1;  //16
     #5 clk = 0;  
     #5 clk = 1;  //17 

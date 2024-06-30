@@ -41,7 +41,8 @@ end
 always@(Write_data) begin
         case(RegWrite) 
             1'b1 : reg_file[Rd] <= Write_data;
-            default : reg_file[Rd] <= 32'b0;
+            1'b0 : reg_file[Rd] <= reg_file[Rd];
+            default : reg_file[Rd] <= reg_file[Rd];
         endcase
 end
 

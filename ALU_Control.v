@@ -15,6 +15,7 @@ always@(*) begin
         6'b10_0_001 : ALUControl_out <= 4'b1000;
         6'b10_0_101 : ALUControl_out <= 4'b1001;
         6'b10_1_101 : ALUControl_out <= 4'b1011;
+        6'b11_z_zzz : ALUControl_out <= 4'b0010;
         default     : ALUControl_out <= 4'b0000;
     endcase
 end

@@ -8,6 +8,7 @@ module Immediate_Generator(Instr, ImmExt);
             7'b0010011: ImmExt = {{20{Instr[31]}}, Instr[31:20]};
             7'b1100011: {ImmExt[31:13],ImmExt[0],ImmExt[12],ImmExt[10:5],ImmExt[4:1],ImmExt[11]} = {{20{Instr[31]}},Instr[31:25],Instr[11:7]};
             7'b0100011: ImmExt = {{20{Instr[31]}},Instr[31:25],Instr[11:7]};
+            7'b1101111: ImmExt = {{12{Instr[31]}},Instr[31],Instr[19:12],Instr[20],Instr[30:21]};
             default: ImmExt = {{20{Instr[31]}}, Instr[31:20]};
         endcase
             
